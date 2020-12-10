@@ -20,7 +20,7 @@ const ModalDisplay = (props) => {
   } = props;
 
   return (
-    <Dialog open={open} onClose={handleClose} {...rest}>
+    <Dialog open={open} {...rest}>
       {dialogTitle ? <DialogTitle>{dialogTitle}</DialogTitle> : null}
       {loading && <LinearProgress />}
       <DialogContent dividers={contentDividers}>{children}</DialogContent>

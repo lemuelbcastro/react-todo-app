@@ -30,14 +30,13 @@ const ModalForm = (props) => {
     handleClose,
     handleSubmit,
     dialogTitle,
-    scroll,
     contentDividers,
     loading,
     ...rest
   } = props;
 
   return (
-    <Dialog scroll={scroll} open={open} onClose={handleClose} {...rest}>
+    <Dialog open={open} {...rest}>
       <DialogTitle>{dialogTitle}</DialogTitle>
       {loading && <LinearProgress />}
       <DialogContent
@@ -73,7 +72,6 @@ ModalForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   dialogTitle: PropTypes.string.isRequired,
   contentDividers: PropTypes.bool,
-  scroll: PropTypes.string,
   loading: PropTypes.bool,
 };
 
