@@ -13,7 +13,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Spinner />
-      <SnackbarProvider maxSnack={1}>
+      <SnackbarProvider>
         <SnackbarHelperConfigurator />
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <Routes />

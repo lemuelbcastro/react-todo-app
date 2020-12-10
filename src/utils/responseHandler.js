@@ -22,6 +22,13 @@ const handler = {
         case 404:
           history.push('/not-found');
           break;
+        case 422:
+          const { errors } = response.data;
+
+          Object.entries(errors).forEach(([, value]) =>
+            snackbarHelper.error(value)
+          );
+          break;
         case 500:
           history.push('/server-error');
           break;
