@@ -8,6 +8,7 @@ import PrivateRoute from './PrivateRoute';
 import { Main, Minimal } from '../Layout';
 import Login from '../Login';
 import Dashboard from '../Dashboard';
+import Users from '../Users';
 import { Forbidden, NotFound, ServerError } from '../Error';
 
 const Routes = () => {
@@ -21,6 +22,13 @@ const Routes = () => {
           layout={Main}
           path="/dashboard"
           roles={[roles.user, roles.admin]}
+        />
+        <PrivateRoute
+          component={Users}
+          exact
+          layout={Main}
+          path="/users"
+          roles={[roles.admin]}
         />
         <PublicRoute
           component={Login}

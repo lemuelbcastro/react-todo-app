@@ -10,7 +10,7 @@ import {
 import CloseIcon from '@material-ui/icons/Close';
 
 const SearchInput = (props) => {
-  const { className, onChange, style, clear, value, ...rest } = props;
+  const { onChange, clear, value, ...rest } = props;
 
   return (
     <FormControl>
@@ -20,20 +20,16 @@ const SearchInput = (props) => {
       <Input
         {...rest}
         id="search-input"
-        className={className}
-        style={style}
         value={value}
         onChange={onChange}
         endAdornment={
-          <InputAdornment position="end">
-            <IconButton
-              aria-label="toggle password visibility"
-              disabled={!value}
-              onClick={clear}
-            >
-              <CloseIcon />
-            </IconButton>
-          </InputAdornment>
+          clear && (
+            <InputAdornment position="end">
+              <IconButton disabled={!value} onClick={clear}>
+                <CloseIcon />
+              </IconButton>
+            </InputAdornment>
+          )
         }
       />
     </FormControl>
@@ -41,11 +37,9 @@ const SearchInput = (props) => {
 };
 
 SearchInput.propTypes = {
-  className: PropTypes.string,
-  onChange: PropTypes.func,
-  style: PropTypes.object,
+  onChange: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
   clear: PropTypes.func,
-  value: PropTypes.string,
 };
 
 export default SearchInput;

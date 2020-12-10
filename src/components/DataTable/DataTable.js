@@ -81,7 +81,8 @@ const DataTable = (props) => {
     rowsPerPageOptions,
     defaultPageSize,
     rowSelection,
-    selectionCallback,
+    singleSelect,
+    handleSelect,
     loading,
     emptyMessage,
     headerTitle,
@@ -100,7 +101,8 @@ const DataTable = (props) => {
     gotoPage,
     setPageSize,
     setGlobalFilter,
-    state: { pageIndex, pageSize, selectedRowIds, globalFilter },
+    selectedFlatRows,
+    state: { pageIndex, pageSize, globalFilter },
   } = useTable(
     {
       columns: tableColumns,
@@ -118,8 +120,19 @@ const DataTable = (props) => {
         hooks.allColumns.push((columns) => [
           {
             id: 'selection',
-            Cell: ({ row }) => {
-              return <Checkbox {...row.getToggleRowSelectedProps()} />;
+            Cell: ({ row, toggleRowSelected, toggleAllRowsSelected }) => {
+              return (
+                <Checkbox
+                  {...row.getToggleRowSelectedProps(
+                    singleSelect && {
+                      onChange: () => {
+                        toggleAllRowsSelected(false);
+                        toggleRowSelected(row.id, !row.isSelected);
+                      },
+                    }
+                  )}
+                />
+              );
             },
           },
           ...columns,
@@ -131,12 +144,12 @@ const DataTable = (props) => {
   const emptyRowCount = pageSize - rows.length;
 
   useEffect(() => {
-    if (selectionCallback) {
-      selectionCallback(
-        Object.keys(selectedRowIds).map((x) => parseInt(x, 10))
-      );
+    if (handleSelect) {
+      const selectedRows = selectedFlatRows.map((d) => d.original);
+      const [selectedRow] = selectedRows;
+      handleSelect(singleSelect ? selectedRow : selectedRows);
     }
-  }, [selectedRowIds, selectionCallback]);
+  }, [selectedFlatRows, singleSelect, handleSelect]);
 
   const handleChangePage = (event, newPage) => {
     gotoPage(newPage);
@@ -255,10 +268,13 @@ const DataTable = (props) => {
 
 DataTable.propTypes = {
   className: PropTypes.string,
-  tableColumns: PropTypes.array.isRequired,
   tableData: PropTypes.array.isRequired,
-  rowsPerPageOptions: PropTypes.array,
+  tableColumns: PropTypes.array.isRequired,
   tableActions: PropTypes.element,
+  rowsPerPageOptions: PropTypes.array,
+  defaultPageSize: PropTypes.number,
+  rowSelection: PropTypes.bool,
+  handleSelect: PropTypes.func,
   loading: PropTypes.bool,
   emptyMessage: PropTypes.string,
   headerTitle: PropTypes.string,

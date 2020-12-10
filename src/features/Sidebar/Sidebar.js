@@ -13,6 +13,7 @@ import {
   colors,
 } from '@material-ui/core';
 import DashboardIcon from '@material-ui/icons/Dashboard';
+import PeopleIcon from '@material-ui/icons/People';
 import { nanoid } from 'nanoid';
 
 import roles from 'utils/roles';
@@ -103,6 +104,13 @@ const Sidebar = (props) => {
         id: nanoid(),
         header: true,
         title: 'Maintenance',
+        roles: [roles.admin],
+      },
+      {
+        id: nanoid(),
+        title: 'Users',
+        href: '/users',
+        icon: <PeopleIcon fontSize="small" />,
         roles: [roles.admin],
       },
     ],
