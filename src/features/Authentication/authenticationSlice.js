@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 import { login as initiateLogin } from 'api/authentication';
 import session from 'utils/session';
-import history from 'utils/history';
 import snackbarHelper from 'utils/snackbarHelper';
 
 export const login = createAsyncThunk(
@@ -23,8 +22,8 @@ export const authenticationSlice = createSlice({
   reducers: {
     logout: (state) => {
       state.isAuthenticated = false;
+      state.user = {};
       session.destroy();
-      history.push('/');
     },
   },
   extraReducers: {
