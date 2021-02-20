@@ -4,8 +4,11 @@ import './index.css';
 import App from './app';
 import store from './app/store';
 import { Provider } from 'react-redux';
+import interceptors from './utils/interceptors';
 import * as serviceWorker from './serviceWorker';
 import 'typeface-roboto';
+
+interceptors.register();
 
 ReactDOM.render(
   <React.StrictMode>

@@ -1,6 +1,6 @@
 import history from './history';
-import session from './session';
 import snackbarHelper from './snackbarHelper';
+import store from '../app/store';
 
 const handler = {
   success: (response) => response,
@@ -13,8 +13,7 @@ const handler = {
           snackbarHelper.error('The server could not process your request');
           break;
         case 401:
-          session.destroy();
-          history.push('/');
+          store.dispatch({ type: 'authentication/logout' });
           break;
         case 403:
           history.push('/forbidden');
