@@ -12,6 +12,7 @@ import {
   Typography,
   colors,
 } from '@material-ui/core';
+import AssignmentIcon from '@material-ui/icons/Assignment';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import PeopleIcon from '@material-ui/icons/People';
 import { nanoid } from 'nanoid';
@@ -97,6 +98,13 @@ const Sidebar = (props) => {
         title: 'Dashboard',
         href: '/dashboard',
         icon: <DashboardIcon />,
+        roles: [roles.user, roles.admin],
+      },
+      {
+        id: nanoid(),
+        title: 'Todos',
+        href: '/todos',
+        icon: <AssignmentIcon />,
         roles: [roles.user, roles.admin],
       },
       { id: nanoid(), divider: true, roles: [roles.admin] },
